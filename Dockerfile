@@ -1,9 +1,4 @@
-FROM alpine:latest
-
-RUN  apk update \
-  && apk upgrade \
-  && apk add --update openjdk17 tzdata curl unzip bash \
-  && rm -rf /var/cache/apk/
+FROM openjdk:17-alpine
 
 ARG JAR_FILE=build/libs/org-0.0.1-SNAPSHOT.jar
 COPY ${JAR_FILE} org-0.0.1-SNAPSHOT.jar

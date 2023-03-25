@@ -23,7 +23,7 @@ public class LoadService {
         model.setComment(loadDTO.getComment());
         model.setWeight(loadDTO.getWeight());
         model.setNoOfTrucks(loadDTO.getNoOfTrucks());
-        model.setTuckType(loadDTO.getTuckType());
+        model.setTuckType(loadDTO.getTruckType());
         model.setShipperId(loadDTO.getShipperId());
         model.setProductType(loadDTO.getProductType());
         return model;
@@ -37,15 +37,16 @@ public class LoadService {
         dto.setComment(loadModel.getComment());
         dto.setWeight(loadModel.getWeight());
         dto.setNoOfTrucks(loadModel.getNoOfTrucks());
-        dto.setTuckType(loadModel.getTuckType());
+        dto.setTruckType(loadModel.getTuckType());
         dto.setShipperId(loadModel.getShipperId());
         dto.setProductType(loadModel.getProductType());
         return dto;
     }
 
     public String save(LoadDTO loadDTO) {
-        loadRepo.save(toLoadModel(loadDTO));
-        return "Load Details Added successfully";
+        var model = toLoadModel(loadDTO);
+        loadRepo.save(model);
+        return "Load Details Added successfully " + model.getId();
     }
 
     public LoadDTO getLoad(Long id) {
@@ -72,7 +73,7 @@ public class LoadService {
         return true;
     }
 
-    public List<LoadDTO> getAllLoads(){
+    public List<LoadDTO> getAllLoads() {
         return loadRepo.findAll().stream().map(this::toLoadDTO).toList();
     }
 }

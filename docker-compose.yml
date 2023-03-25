@@ -1,4 +1,4 @@
-version: "3"
+version: "3.9"
 
 services:
   load:
@@ -7,18 +7,18 @@ services:
       - "8080:8080"
     depends_on:
       - db
+    networks:
+      - default
     environment:
-      - DATABASE_URL=postgres://boris:boris@db:5432/loadstore
+      - DATABASE_URL=jdbc:postgresql://db:5432/loadstore
       - DB_USERNAME=boris
       - DB_PASSWORD=boris
   db:
     image: postgres:15.2-alpine
-    container_name: full_db_postgres
     environment:
       - POSTGRES_USER=boris
       - POSTGRES_PASSWORD=boris
       - POSTGRES_DB=loadstore
     networks:
       - default
-    ports:
-      - '5432:5433'
+

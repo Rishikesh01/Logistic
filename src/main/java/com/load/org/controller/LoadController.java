@@ -19,12 +19,14 @@ public class LoadController {
 
     @PostMapping
     public ResponseEntity<String> createLoad(@RequestBody LoadDTO loadDTO) {
+        if (loadDTO.getDate() == null) return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         var val = loadService.save(loadDTO);
         return ResponseEntity.ok(val);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<HttpStatus> updateLoad(@PathVariable("id") Long id, @RequestBody LoadUpdateDTO loadUpdateDTO) {
+        if (loadUpdateDTO.getDate() == null) return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         if (!loadService.updateLoad(loadUpdateDTO, id)) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
